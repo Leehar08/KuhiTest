@@ -1,1304 +1,1307 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+
+  const GEMINI_API_KEY = 'AIzaSyB2qfGVLuWIMYRpdykBhJqbxIELfagN6Mc'; // <-- REPLACE THIS WITH YOUR ACTUAL API KEY
+  const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
     // --- YOUR JSON DATA FOR EACH SUBJECT GOES HERE ---
     // Please replace these small samples with your full question sets.
-    const physicsQuestions = [
-    
-        {
-            "question": "Why is gold used in the Gold-leaf electroscope?",
-            "options": {
-                "a": "Gold is easily available in nature",
-                "b": "Gold is malleable",
-                "c": "Gold is conducting in nature",
-                "d": "Gold is cheap"
-            },
-            "answer": "b"
-        },
-        {
-            "question": "Two point charges repel each other with a force of \(F \). If the distance between the charges is doubled, the force between them will be:",
-            "options": {
-                "a": "(F/2)",
-                "b": "(F/4)",
-                "c": "(2F)",
-                "d": "(4F)"
-            },
-            "answer": "(b) (F/4)"
-        },
-        {
-            "question": "If a unit positive charge is taken from one point to another over an equipotential surface, then:",
-            "options": {
-                "a": "Work is done on the charge",
-                "b": "Work is done by the charge",
-                "c": "Work done is constant",
-                "d": "No work is done"
-            },
-            "answer": "(d) No work is done"
-        },
-        {
-            "question": "The electric field intensity due to a charged spherical shell of radius \\(R \\) at a distance $1(r1)$ from its center is zero when:",
-            "options": {
-                "a": "$1(r<R~l)$",
-                "b": "\\(r = R \\)",
-                "c": "\\ $1(r>R~l)$",
-                "d": "None of the above"
-            },
-            "answer": "(a) $(r<R)$"
-        },
-        {
-            "question": "The Sl unit of electric flux is:",
-            "options": {
-                "a": "Nm\\(^2\\)/C",
-                "b": "Nm/C",
-                "c": "C/Nm",
-                "d": "$Cl(^{\\wedge}21)/Nml(^{\\wedge}21)$"
-            },
-            "answer": "(a) $Nml(^{\\wedge}21)/C$"
-        },
-        {
-            "question": "According to Gauss's law, the net electric flux through any closed surface is equal to:",
-            "options": {
-                "a": "Product of net charge and permittivity",
-                "b": "Net charge enclosed by the surface divided by permittivity",
-                "c": "Product of net charge and electric field",
-                "d": "Net charge enclosed by the surface"
-            },
-            "answer": "(b) Net charge enclosed by the surface divided by permittivity"
-        },
-        {
-            "question": "Which of the following statements is correct about electric field lines?",
-            "options": {
-                "a": "They are closed loops.",
-                "b": "They never intersect.",
-                "c": "They diverge from negative charges.",
-                "d": "They converge at positive charges."
-            },
-            "answer": "(b) They never intersect."
-        },
-        {
-            "question": "A charged particle moves in an electric field. Which of the following quantities always remains constant?",
-            "options": {
-                "a": "Speed",
-                "b": "Velocity",
-                "c": "Momentum",
-                "d": "Charge"
-            },
-            "answer": "(d) Charge"
-        },
-        {
-            "question": "The electrostatic force between two charges is inversely proportional to the:",
-            "options": {
-                "a": "Distance between the charges",
-                "b": "Square of the distance between the charges",
-                "c": "Product of the charges",
-                "d": "Square root of the distance between the charges"
-            },
-            "answer": "(b) Square of the distance between the charges"
-        },
-        {
-            "question": "Physics involves the study of the",
-            "options": {
-                "1": "Plants",
-                "2": "Humans",
-                "3": "Birds and animals",
-                "4": "Nature and natural phenomena"
-            },
-            "answer": "Physics is a branch of science which deals with the study of nature and natural phenomena."
-        },
-        {
-            "question": "Which of the following is not a fundamental quantity?",
-            "options": {
-                "a": "Mass",
-                "b": "Time",
-                "c": "Density",
-                "d": "Length"
-            },
-            "answer": "c) Density"
-        },
-        {
-            "question": "For a projectile, the horizontal velocity:",
-            "options": {
-                "a": "Increases uniformly",
-                "b": "Decreases uniformly",
-                "c": "Remains constant",
-                "d": "Is zero"
-            },
-            "answer": "c) Remains constant"
-        },
-        {
-            "question": "The trajectory of a projectile is:",
-            "options": {
-                "a": "Circular",
-                "b": "Elliptical",
-                "c": "Parabolic",
-                "d": "Straight line"
-            },
-            "answer": "c) Parabolic"
-        },
-        {
-            "question": "Which of the following is an example of Newton's first law of motion?",
-            "options": {
-                "a": "A book remains at rest on a table until a force is applied.",
-                "b": "A rocket accelerates upwards.",
-                "c": "Action and reaction forces are equal and opposite.",
-                "d": "Gravitational force acting on a free-falling object."
-            },
-            "answer": "a) A book remains at rest on a table until a force is applied."
-        },
-        {
-            "question": "The unit of force is:",
-            "options": {
-                "a": "Joule",
-                "b": "Newton",
-                "c": "Watt",
-                "d": "Pascal"
-            },
-            "answer": "b) Newton"
-        },
-        {
-            "question": "Newton's second law gives the relationship between:",
-            "options": {
-                "a": "Velocity and time",
-                "b": "Acceleration and force",
-                "c": "Mass and weight",
-                "d": "Displacement and force"
-            },
-            "answer": "b) Acceleration and force"
-        },
-        {
-            "question": "When the net force on a body is zero, the body is said to be in:",
-            "options": {
-                "a": "Uniform motion",
-                "b": "Accelerated motion",
-                "c": "Rest or uniform motion",
-                "d": "Rotational motion"
-            },
-            "answer": "c) Rest or uniform motion"
-        },
-        {
-            "question": "Action and reaction forces act on:",
-            "options": {
-                "a": "The same body",
-                "b": "Two different bodies",
-                "c": "The center of mass",
-                "d": "Two points of the same body"
-            },
-            "answer": "b) Two different bodies"
-        },
-        {
-            "question": "The inertia of a body depends on its",
-            "options": {
-                "a": "Velocity",
-                "b": "Mass",
-                "c": "Acceleration",
-                "d": "Shape"
-            },
-            "answer": "b) Mass"
-        },
-        {
-            "question": "Frictional force acts in a direction",
-            "options": {
-                "a": "Perpendicular to the surface",
-                "b": "Along the motion of the body",
-                "c": "Opposite to the motion of the body",
-                "d": "Parallel to the applied force"
-            },
-            "answer": "c) Opposite to the motion of the body"
-        },
-        {
-            "question": "Which of these is not a type of friction?",
-            "options": {
-                "a": "Rolling friction",
-                "b": "Static friction",
-                "c": "Dynamic friction",
-                "d": "Magnetic friction"
-            },
-            "answer": "d) Magnetic friction"
-        },
-        {
-            "question": "A body is moving with uniform velocity. What is the net force acting on the body?",
-            "options": {
-                "a": "Zero",
-                "b": "Equal to its weight",
-                "c": "Equal to its acceleration",
-                "d": "Constant and non-zero"
-            },
-            "answer": "a) Zero"
-        },
-        {
-            "question": "The force required to overcome friction at the start of motion is called:",
-            "options": {
-                "a": "Static friction",
-                "b": "Rolling friction",
-                "c": "Kinetic friction",
-                "d": "Limiting friction"
-            },
-            "answer": "d) Limiting friction"
-        },
-        {
-            "question": "Which of the following is a contact force?",
-            "options": {
-                "a": "Gravitational force",
-                "b": "Frictional force",
-                "c": "Magnetic force",
-                "d": "Electrostatic force"
-            },
-            "answer": "b) Frictional force"
-        },
-        {
-            "question": "Newton's third law explains:",
-            "options": {
-                "a": "Conservation of energy",
-                "b": "Conservation of momentum",
-                "c": "Law of inertia",
-                "d": "Rotational motion"
-            },
-            "answer": "b) Conservation of momentum"
-        },
-        {
-            "question": "If the acceleration of a body is zero, which of the following is true?",
-            "options": {
-                "a": "No force is acting on the body.",
-                "b": "Net force acting on the body is zero.",
-                "c": "The body is in motion with increasing velocity.",
-                "d": "The body is in motion with decreasing velocity."
-            },
-            "answer": "b) Net force acting on the body is zero."
-        },
-        {
-            "question": "Which law of motion defines force?",
-            "options": {
-                "a": "Newton’s first law",
-                "b": "Newton’s second law",
-                "c": "Newton’s third law",
-                "d": "None of the above"
-            },
-            "answer": "b) Newton’s second law"
-        },
-        {
-            "question": "Work is defined as the product of:",
-            "options": {
-                "a": "Force and time",
-                "b": "Force and displacement",
-                "c": "Force and acceleration",
-                "d": "Force and velocity"
-            },
-            "answer": "b) Force and displacement"
-        },
-        {
-            "question": "The SI unit of work is:",
-            "options": {
-                "a": "Newton",
-                "b": "Joule",
-                "c": "Watt",
-                "d": "Erg"
-            },
-            "answer": "b) Joule"
-        },
-        {
-            "question": "If the angle between force and displacement is 90∘, the work done is:",
-            "options": {
-                "a": "Maximum",
-                "b": "Zero",
-                "c": "Negative",
-                "d": "Minimum"
-            },
-            "answer": "b) Zero"
-        },
-        {
-            "question": "Kinetic energy depends on:",
-            "options": {
-                "a": "Mass only",
-                "b": "Velocity only",
-                "c": "Both mass and velocity",
-                "d": "None of the above"
-            },
-            "answer": "c) Both mass and velocity"
-        },
-        {
-            "question": "What is the work done by a centripetal force on an object moving in a circular path?",
-            "options": {
-                "a": "Positive",
-                "b": "Negative",
-                "c": "Zero",
-                "d": "Depends on the radius"
-            },
-            "answer": "c) Zero"
-        },
-        {
-            "question": "The work-energy theorem states that:",
-            "options": {
-                "a": "Work done is equal to the change in potential energy",
-                "b": "Work done is equal to the change in kinetic energy",
-                "c": "Work done is equal to the change in total energy",
-                "d": "None of the above"
-            },
-            "answer": "b) Work done is equal to the change in kinetic energy"
-        },
-        {
-            "question": "Power is the rate of doing:",
-            "options": {
-                "a": "Work",
-                "b": "Energy",
-                "c": "Force",
-                "d": "Momentum"
-            },
-            "answer": "a) Work"
-        },
-        {
-            "question": "The SI unit of power is:",
-            "options": {
-                "a": "Watt",
-                "b": "Joule",
-                "c": "Newton",
-                "d": "Erg"
-            },
-            "answer": "a) Watt"
-        },
-        {
-            "question": "What happens to the kinetic energy if the velocity of a body doubles?",
-            "options": {
-                "a": "Remains the same",
-                "b": "Doubles",
-                "c": "Quadruples",
-                "d": "Triples"
-            },
-            "answer": "c) Quadruples"
-        },
-        {
-            "question": "The energy possessed by a body due to its motion is:",
-            "options": {
-                "a": "Potential energy",
-                "b": "Kinetic energy",
-                "c": "Elastic energy",
-                "d": "None of the above"
-            },
-            "answer": "b) Kinetic energy"
-        },
-        {
-            "question": "If the work done on an object is positive, then:",
-            "options": {
-                "a": "The object gains energy",
-                "b": "The object loses energy",
-                "c": "The energy remains constant",
-                "d": "Work done is zero"
-            },
-            "answer": "a) The object gains energy"
-        },
-        {
-            "question": "A body falls freely under gravity. Its total mechanical energy:",
-            "options": {
-                "a": "Increases",
-                "b": "Decreases",
-                "c": "Remains constant",
-                "d": "Depends on the mass of the body"
-            },
-            "answer": "c) Remains constant"
-        },
-        {
-            "question": "Which of the following is a scalar quantity?",
-            "options": {
-                "a": "Force",
-                "b": "Power",
-                "c": "Work",
-                "d": "Both b and c"
-            },
-            "answer": "d) Both b and c"
-        },
-        {
-            "question": "If the velocity of an object is halved, its kinetic energy becomes:",
-            "options": {
-                "a": "Half",
-                "b": "Double",
-                "c": "One-fourth",
-                "d": "Unchanged"
-            },
-            "answer": "c) One-fourth"
-        },
-        {
-            "question": "The center of mass of a system of particles lies:",
-            "options": {
-                "a": "Always inside the system",
-                "b": "Always outside the system",
-                "c": "May be inside or outside the system",
-                "d": "Always on the heaviest particle"
-            },
-            "answer": "c) May be inside or outside the system"
-        },
-        {
-            "question": "The center of mass of a uniform circular ring lies:",
-            "options": {
-                "a": "At the center of the ring",
-                "b": "At the circumference of the ring",
-                "c": "Outside the ring",
-                "d": "At the midpoint of the radius"
-            },
-            "answer": "a) At the center of the ring"
-        },
-        {
-            "question": "Moment of inertia depends on:",
-            "options": {
-                "a": "Mass of the body",
-                "b": "Distribution of mass about the axis of rotation",
-                "c": "Position and orientation of the axis of rotation",
-                "d": "All of the above"
-            },
-            "answer": "d) All of the above"
-        },
-        {
-            "question": "Torque is the rotational analogue of:",
-            "options": {
-                "a": "Force",
-                "b": "Work",
-                "c": "Momentum",
-                "d": "Energy"
-            },
-            "answer": "a) Force"
-        },
-        {
-            "question": "The SI unit of moment of inertia is:",
-            "options": {
-                "a": "kg m/s",
-                "b": "kg m²",
-                "c": "N m",
-                "d": "N m²"
-            },
-            "answer": "b) kg m²"
-        },
-        {
-            "question": "A rigid body is said to be in equilibrium if:",
-            "options": {
-                "a": "The net external force is zero",
-                "b": "The net external torque is zero",
-                "c": "Both (a) and (b)",
-                "d": "None of these"
-            },
-            "answer": "c) Both (a) and (b)"
-        },
-        {
-            "question": "The center of gravity of a freely suspended object lies:",
-            "options": {
-                "a": "At its geometric center",
-                "b": "At the point of suspension",
-                "c": "At the heaviest point of the object",
-                "d": "None of the above"
-            },
-            "answer": "b) At the point of suspension"
-        },
-        {
-            "question": "The rotational analogue of mass in linear motion is:",
-            "options": {
-                "a": "Force",
-                "b": "Torque",
-                "c": "Moment of inertia",
-                "d": "Angular acceleration"
-            },
-            "answer": "c) Moment of inertia"
-        },
-        {
-            "question": "For a rigid body rotating about a fixed axis, all particles have the same:",
-            "options": {
-                "a": "Angular velocity",
-                "b": "Linear velocity",
-                "c": "Linear acceleration",
-                "d": "Kinetic energy"
-            },
-            "answer": "a) Angular velocity"
-        },
-        {
-            "question": "In pure rolling motion, the velocity of the point of contact with the ground is:",
-            "options": {
-                "a": "Equal to the velocity of the center of mass",
-                "b": "Zero",
-                "c": "Double the velocity of the center of mass",
-                "d": "Infinite"
-            },
-            "answer": "b) Zero"
-        },
-        {
-            "question": "A rigid body is in rotational equilibrium if:",
-            "options": {
-                "a": "Net torque acting on the body is zero",
-                "b": "Net force acting on the body is zero",
-                "c": "Both (a) and (b)",
-                "d": "None of these"
-            },
-            "answer": "a) Net torque acting on the body is zero"
-        },
-        {
-            "question": "The angular acceleration of a rigid body is directly proportional to:",
-            "options": {
-                "a": "Torque",
-                "b": "Moment of inertia",
-                "c": "Radius of rotation",
-                "d": "Angular velocity"
-            },
-            "answer": "a) Torque"
-        },
-        {
-            "question": "Which of the following statements is true for a system of particles?",
-            "options": {
-                "a": "Linear momentum is always conserved.",
-                "b": "Angular momentum is always conserved.",
-                "c": "Both are conserved in the absence of external forces and torques.",
-                "d": "Neither is conserved."
-            },
-            "answer": "c) Both are conserved in the absence of external forces and torques."
-        },
-        {
-            "question": "Which law describes the orbits of planets around the sun?",
-            "options": {
-                "a": "Newton’s law",
-                "b": "Faraday’s law",
-                "c": "Kepler’s law",
-                "d": "Kirchoff’s Law"
-            },
-            "answer": "(c) Kepler’s law"
-        },
-        {
-            "question": "Gravitational force is:",
-            "options": {
-                "a": "Always attractive",
-                "b": "Always repulsive",
-                "c": "Attractive or repulsive depending on the situation",
-                "d": "None of the above"
-            },
-            "answer": "a) Always attractive"
-        },
-        {
-            "question": "Kepler’s first law states that:",
-            "options": {
-                "a": "The orbit of a planet is circular.",
-                "b": "The orbit of a planet is elliptical with the Sun at one focus.",
-                "c": "Planets move with uniform speed in their orbit.",
-                "d": "The square of the orbital period is proportional to the cube of the semi-major axis."
-            },
-            "answer": "b) The orbit of a planet is elliptical with the Sun at one focus."
-        },
-        {
-            "question": "If the radius of the Earth is halved, the acceleration due to gravity will become:",
-            "options": {
-                "a": "Half"
-            },
-            "answer": "C"
-        },
-        {
-            "question": "Cathode rays were discovered by",
-            "options": {
-                "A": "Maxwell Clerk James",
-                "B": "Heinrich Hertz",
-                "C": "William Crookes",
-                "D": "J.J. Thomson"
-            },
-            "answer": "C"
-        },
-        {
-            "question": "Which of the following shows particle nature of light?",
-            "options": {
-                "A": "Photoelectric effect",
-                "B": "Refraction",
-                "C": "Interference",
-                "D": "Polarisation"
-            },
-            "answer": "A"
-        }
-    
+   const physicsQuestions = [
+    
+        {
+            "question": "Why is gold used in the Gold-leaf electroscope?",
+            "options": {
+                "a": "Gold is easily available in nature",
+                "b": "Gold is malleable",
+                "c": "Gold is conducting in nature",
+                "d": "Gold is cheap"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "Two point charges repel each other with a force of \(F \). If the distance between the charges is doubled, the force between them will be:",
+            "options": {
+                "a": "(F/2)",
+                "b": "(F/4)",
+                "c": "(2F)",
+                "d": "(4F)"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "If a unit positive charge is taken from one point to another over an equipotential surface, then:",
+            "options": {
+                "a": "Work is done on the charge",
+                "b": "Work is done by the charge",
+                "c": "Work done is constant",
+                "d": "No work is done"
+            },
+            "answer": "d"
+        },
+        {
+            "question": "The electric field intensity due to a charged spherical shell of radius \\(R \\) at a distance $1(r1)$ from its center is zero when:",
+            "options": {
+                "a": "$1(r<R~l)$",
+                "b": "\\(r = R \\)",
+                "c": "\\ $1(r>R~l)$",
+                "d": "None of the above"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "The Sl unit of electric flux is:",
+            "options": {
+                "a": "Nm\\(^2\\)/C",
+                "b": "Nm/C",
+                "c": "C/Nm",
+                "d": "$Cl(^{\\wedge}21)/Nml(^{\\wedge}21)$"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "According to Gauss's law, the net electric flux through any closed surface is equal to:",
+            "options": {
+                "a": "Product of net charge and permittivity",
+                "b": "Net charge enclosed by the surface divided by permittivity",
+                "c": "Product of net charge and electric field",
+                "d": "Net charge enclosed by the surface"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "Which of the following statements is correct about electric field lines?",
+            "options": {
+                "a": "They are closed loops.",
+                "b": "They never intersect.",
+                "c": "They diverge from negative charges.",
+                "d": "They converge at positive charges."
+            },
+            "answer": "b"
+        },
+        {
+            "question": "A charged particle moves in an electric field. Which of the following quantities always remains constant?",
+            "options": {
+                "a": "Speed",
+                "b": "Velocity",
+                "c": "Momentum",
+                "d": "Charge"
+            },
+            "answer": "d"
+        },
+        {
+            "question": "The electrostatic force between two charges is inversely proportional to the:",
+            "options": {
+                "a": "Distance between the charges",
+                "b": "Square of the distance between the charges",
+                "c": "Product of the charges",
+                "d": "Square root of the distance between the charges"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "Physics involves the study of the",
+            "options": {
+                "1": "Plants",
+                "2": "Humans",
+                "3": "Birds and animals",
+                "4": "Nature and natural phenomena"
+            },
+            "answer": "4"
+        },
+        {
+            "question": "Which of the following is not a fundamental quantity?",
+            "options": {
+                "a": "Mass",
+                "b": "Time",
+                "c": "Density",
+                "d": "Length"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "For a projectile, the horizontal velocity:",
+            "options": {
+                "a": "Increases uniformly",
+                "b": "Decreases uniformly",
+                "c": "Remains constant",
+                "d": "Is zero"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "The trajectory of a projectile is:",
+            "options": {
+                "a": "Circular",
+                "b": "Elliptical",
+                "c": "Parabolic",
+                "d": "Straight line"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "Which of the following is an example of Newton's first law of motion?",
+            "options": {
+                "a": "A book remains at rest on a table until a force is applied.",
+                "b": "A rocket accelerates upwards.",
+                "c": "Action and reaction forces are equal and opposite.",
+                "d": "Gravitational force acting on a free-falling object."
+            },
+            "answer": "a"
+        },
+        {
+            "question": "The unit of force is:",
+            "options": {
+                "a": "Joule",
+                "b": "Newton",
+                "c": "Watt",
+                "d": "Pascal"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "Newton's second law gives the relationship between:",
+            "options": {
+                "a": "Velocity and time",
+                "b": "Acceleration and force",
+                "c": "Mass and weight",
+                "d": "Displacement and force"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "When the net force on a body is zero, the body is said to be in:",
+            "options": {
+                "a": "Uniform motion",
+                "b": "Accelerated motion",
+                "c": "Rest or uniform motion",
+                "d": "Rotational motion"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "Action and reaction forces act on:",
+            "options": {
+                "a": "The same body",
+                "b": "Two different bodies",
+                "c": "The center of mass",
+                "d": "Two points of the same body"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "The inertia of a body depends on its",
+            "options": {
+                "a": "Velocity",
+                "b": "Mass",
+                "c": "Acceleration",
+                "d": "Shape"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "Frictional force acts in a direction",
+            "options": {
+                "a": "Perpendicular to the surface",
+                "b": "Along the motion of the body",
+                "c": "Opposite to the motion of the body",
+                "d": "Parallel to the applied force"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "Which of these is not a type of friction?",
+            "options": {
+                "a": "Rolling friction",
+                "b": "Static friction",
+                "c": "Dynamic friction",
+                "d": "Magnetic friction"
+            },
+            "answer": "d"
+        },
+        {
+            "question": "A body is moving with uniform velocity. What is the net force acting on the body?",
+            "options": {
+                "a": "Zero",
+                "b": "Equal to its weight",
+                "c": "Equal to its acceleration",
+                "d": "Constant and non-zero"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "The force required to overcome friction at the start of motion is called:",
+            "options": {
+                "a": "Static friction",
+                "b": "Rolling friction",
+                "c": "Kinetic friction",
+                "d": "Limiting friction"
+            },
+            "answer": "d"
+        },
+        {
+            "question": "Which of the following is a contact force?",
+            "options": {
+                "a": "Gravitational force",
+                "b": "Frictional force",
+                "c": "Magnetic force",
+                "d": "Electrostatic force"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "Newton's third law explains:",
+            "options": {
+                "a": "Conservation of energy",
+                "b": "Conservation of momentum",
+                "c": "Law of inertia",
+                "d": "Rotational motion"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "If the acceleration of a body is zero, which of the following is true?",
+            "options": {
+                "a": "No force is acting on the body.",
+                "b": "Net force acting on the body is zero.",
+                "c": "The body is in motion with increasing velocity.",
+                "d": "The body is in motion with decreasing velocity."
+            },
+            "answer": "b"
+        },
+        {
+            "question": "Which law of motion defines force?",
+            "options": {
+                "a": "Newton’s first law",
+                "b": "Newton’s second law",
+                "c": "Newton’s third law",
+                "d": "None of the above"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "Work is defined as the product of:",
+            "options": {
+                "a": "Force and time",
+                "b": "Force and displacement",
+                "c": "Force and acceleration",
+                "d": "Force and velocity"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "The SI unit of work is:",
+            "options": {
+                "a": "Newton",
+                "b": "Joule",
+                "c": "Watt",
+                "d": "Erg"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "If the angle between force and displacement is 90∘, the work done is:",
+            "options": {
+                "a": "Maximum",
+                "b": "Zero",
+                "c": "Negative",
+                "d": "Minimum"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "Kinetic energy depends on:",
+            "options": {
+                "a": "Mass only",
+                "b": "Velocity only",
+                "c": "Both mass and velocity",
+                "d": "None of the above"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "What is the work done by a centripetal force on an object moving in a circular path?",
+            "options": {
+                "a": "Positive",
+                "b": "Negative",
+                "c": "Zero",
+                "d": "Depends on the radius"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "The work-energy theorem states that:",
+            "options": {
+                "a": "Work done is equal to the change in potential energy",
+                "b": "Work done is equal to the change in kinetic energy",
+                "c": "Work done is equal to the change in total energy",
+                "d": "None of the above"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "Power is the rate of doing:",
+            "options": {
+                "a": "Work",
+                "b": "Energy",
+                "c": "Force",
+                "d": "Momentum"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "The SI unit of power is:",
+            "options": {
+                "a": "Watt",
+                "b": "Joule",
+                "c": "Newton",
+                "d": "Erg"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "What happens to the kinetic energy if the velocity of a body doubles?",
+            "options": {
+                "a": "Remains the same",
+                "b": "Doubles",
+                "c": "Quadruples",
+                "d": "Triples"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "The energy possessed by a body due to its motion is:",
+            "options": {
+                "a": "Potential energy",
+                "b": "Kinetic energy",
+                "c": "Elastic energy",
+                "d": "None of the above"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "If the work done on an object is positive, then:",
+            "options": {
+                "a": "The object gains energy",
+                "b": "The object loses energy",
+                "c": "The energy remains constant",
+                "d": "Work done is zero"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "A body falls freely under gravity. Its total mechanical energy:",
+            "options": {
+                "a": "Increases",
+                "b": "Decreases",
+                "c": "Remains constant",
+                "d": "Depends on the mass of the body"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "Which of the following is a scalar quantity?",
+            "options": {
+                "a": "Force",
+                "b": "Power",
+                "c": "Work",
+                "d": "Both b and c"
+            },
+            "answer": "d"
+        },
+        {
+            "question": "If the velocity of an object is halved, its kinetic energy becomes:",
+            "options": {
+                "a": "Half",
+                "b": "Double",
+                "c": "One-fourth",
+                "d": "Unchanged"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "The center of mass of a system of particles lies:",
+            "options": {
+                "a": "Always inside the system",
+                "b": "Always outside the system",
+                "c": "May be inside or outside the system",
+                "d": "Always on the heaviest particle"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "The center of mass of a uniform circular ring lies:",
+            "options": {
+                "a": "At the center of the ring",
+                "b": "At the circumference of the ring",
+                "c": "Outside the ring",
+                "d": "At the midpoint of the radius"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "Moment of inertia depends on:",
+            "options": {
+                "a": "Mass of the body",
+                "b": "Distribution of mass about the axis of rotation",
+                "c": "Position and orientation of the axis of rotation",
+                "d": "All of the above"
+            },
+            "answer": "d"
+        },
+        {
+            "question": "Torque is the rotational analogue of:",
+            "options": {
+                "a": "Force",
+                "b": "Work",
+                "c": "Momentum",
+                "d": "Energy"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "The SI unit of moment of inertia is:",
+            "options": {
+                "a": "kg m/s",
+                "b": "kg m²",
+                "c": "N m",
+                "d": "N m²"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "A rigid body is said to be in equilibrium if:",
+            "options": {
+                "a": "The net external force is zero",
+                "b": "The net external torque is zero",
+                "c": "Both (a) and (b)",
+                "d": "None of these"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "The center of gravity of a freely suspended object lies:",
+            "options": {
+                "a": "At its geometric center",
+                "b": "At the point of suspension",
+                "c": "At the heaviest point of the object",
+                "d": "None of the above"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "The rotational analogue of mass in linear motion is:",
+            "options": {
+                "a": "Force",
+                "b": "Torque",
+                "c": "Moment of inertia",
+                "d": "Angular acceleration"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "For a rigid body rotating about a fixed axis, all particles have the same:",
+            "options": {
+                "a": "Angular velocity",
+                "b": "Linear velocity",
+                "c": "Linear acceleration",
+                "d": "Kinetic energy"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "In pure rolling motion, the velocity of the point of contact with the ground is:",
+            "options": {
+                "a": "Equal to the velocity of the center of mass",
+                "b": "Zero",
+                "c": "Double the velocity of the center of mass",
+                "d": "Infinite"
+            },
+            "answer": "b"
+        },
+        {
+            "question": "A rigid body is in rotational equilibrium if:",
+            "options": {
+                "a": "Net torque acting on the body is zero",
+                "b": "Net force acting on the body is zero",
+                "c": "Both (a) and (b)",
+                "d": "None of these"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "The angular acceleration of a rigid body is directly proportional to:",
+            "options": {
+                "a": "Torque",
+                "b": "Moment of inertia",
+                "c": "Radius of rotation",
+                "d": "Angular velocity"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "Which of the following statements is true for a system of particles?",
+            "options": {
+                "a": "Linear momentum is always conserved.",
+                "b": "Angular momentum is always conserved.",
+                "c": "Both are conserved in the absence of external forces and torques.",
+                "d": "Neither is conserved."
+            },
+            "answer": "c"
+        },
+        {
+            "question": "Which law describes the orbits of planets around the sun?",
+            "options": {
+                "a": "Newton’s law",
+                "b": "Faraday’s law",
+                "c": "Kepler’s law",
+                "d": "Kirchoff’s Law"
+            },
+            "answer": "c"
+        },
+        {
+            "question": "Gravitational force is:",
+            "options": {
+                "a": "Always attractive",
+                "b": "Always repulsive",
+                "c": "Attractive or repulsive depending on the situation",
+                "d": "None of the above"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "Kepler’s first law states that:",
+            "options": {
+                "a": "The orbit of a planet is circular.",
+                "b": "The orbit of a planet is elliptical with the Sun at one focus.",
+                "c": "Planets move with uniform speed in their orbit.",
+                "d": "The square of the orbital period is proportional to the cube of the semi-major axis."
+            },
+            "answer": "b"
+        },
+        {
+            "question": "If the radius of the Earth is halved, the acceleration due to gravity will become:",
+            "options": {
+                "a": "Half"
+            },
+            "answer": "a"
+        },
+        {
+            "question": "Cathode rays were discovered by",
+            "options": {
+                "A": "Maxwell Clerk James",
+                "B": "Heinrich Hertz",
+                "C": "William Crookes",
+                "D": "J.J. Thomson"
+            },
+            "answer": "C"
+        },
+        {
+            "question": "Which of the following shows particle nature of light?",
+            "options": {
+                "A": "Photoelectric effect",
+                "B": "Refraction",
+                "C": "Interference",
+                "D": "Polarisation"
+            },
+            "answer": "A"
+        }
+    
 
-    ];
+    ];
 
     const chemistryQuestions = [
-  
-    {
-      "question": "Which branch of chemistry deals with the study of the composition, structure, and properties of matter?",
-      "options": [
-        "a) Physical Chemistry",
-        "b) Organic Chemistry",
-        "c) Analytical Chemistry",
-        "d) General Chemistry"
-      ],
-      "answer": "d) General Chemistry"
-    },
-    {
-      "question": "Which of the following is an extensive property of matter?",
-      "options": [
-        "a) Density",
-        "b) Volume",
-        "c) Melting point",
-        "d) Refractive index"
-      ],
-      "answer": "b) Volume"
-    },
-    {
-      "question": "Identify the intensive property:",
-      "options": [
-        "a) Mass",
-        "b) Volume",
-        "c) Boiling point",
-        "d) Length"
-      ],
-      "answer": "c) Boiling point"
-    },
-    {
-      "question": "Which law states that a given compound always contains exactly the same proportion of elements by weight?",
-      "options": [
-        "a) Law of Conservation of Mass",
-        "b) Law of Constant Proportion",
-        "c) Law of Multiple Proportion",
-        "d) Avogadro’s Law"
-      ],
-      "answer": "b) Law of Constant Proportion"
-    },
-    {
-      "question": "Who gave the law of conservation of mass?",
-      "options": [
-        "a) Dalton",
-        "b) Lavoisier",
-        "c) Proust",
-        "d) Avogadro"
-      ],
-      "answer": "b) Lavoisier"
-    },
-    {
-      "question": "The ratio of hydrogen to oxygen in water is always 1:8 by mass. This supports:",
-      "options": [
-        "a) Law of Constant Proportion",
-        "b) Law of Multiple Proportion",
-        "c) Avogadro’s Law",
-        "d) Dalton’s Atomic Theory"
-      ],
-      "answer": "a) Law of Constant Proportion"
-    },
-    {
-      "question": "What is the molecular mass of CO₂? (C = 12, O = 16)",
-      "options": [
-        "a) 28",
-        "b) 44",
-        "c) 32",
-        "d) 40"
-      ],
-      "answer": "b) 44"
-    },
-    {
-      "question": "What is the atomic mass of an element with 11 protons and 12 neutrons?",
-      "options": [
-        "a) 12",
-        "b) 22",
-        "c) 23",
-        "d) 24"
-      ],
-      "answer": "c) 23"
-    },
-    {
-      "question": "The number of moles in 90 g of water is (H = 1, O = 16):",
-      "options": [
-        "a) 2",
-        "b) 5",
-        "c) 10",
-        "d) 1"
-      ],
-      "answer": "a) 5"
-    },
-    {
-      "question": "1 mole of oxygen gas (O₂) weighs:",
-      "options": [
-        "a) 16 g",
-        "b) 32 g",
-        "c) 18 g",
-        "d) 44 g"
-      ],
-      "answer": "b) 32 g"
-    },
-    {
-      "question": "The empirical formula of benzene (C₆H₆) is:",
-      "options": [
-        "a) CH",
-        "b) CH₂",
-        "c) C₂H₂",
-        "d) C₆H₆"
-      ],
-      "answer": "a) CH"
-    },
-    {
-      "question": "If the empirical formula is CH₂ and the molecular mass is 56, what is the molecular formula?",
-      "options": [
-        "a) CH₂",
-        "b) C₂H₄",
-        "c) C₄H₈",
-        "d) C₅H₁₀"
-      ],
-      "answer": "c) C₄H₈"
-    },
-    {
-      "question": "Which of the following represents 1 mole?",
-      "options": [
-        "a) 12 g of carbon-12",
-        "b) 6.022×10236.022 \\times 10^{23} atoms of helium",
-        "c) 1 g of hydrogen gas",
-        "d) 22.4 L of oxygen at STP"
-      ],
-      "answer": "a) 12 g of carbon-12"
-    },
-    {
-      "question": "What volume does 1 mole of a gas occupy at STP?",
-      "options": [
-        "a) 22.4 mL",
-        "b) 22.4 L",
-        "c) 2.24 L",
-        "d) 224 L"
-      ],
-      "answer": "b) 22.4 L"
-    },
-    {
-      "question": "The reactant that gets completely consumed in a chemical reaction is called:",
-      "options": [
-        "a) Excess reagent",
-        "b) Limiting reagent",
-        "c) Primary reagent",
-        "d) Catalytic reagent"
-      ],
-      "answer": "b) Limiting reagent"
-    },
-    {
-      "question": "Molarity is defined as:",
-      "options": [
-        "a) Moles of solute per liter of solution",
-        "b) Grams of solute per liter of solution",
-        "c) Moles of solute per kilogram of solvent",
-        "d) Grams of solute per kilogram of solvent"
-      ],
-      "answer": "a) Moles of solute per liter of solution"
-    },
-    {
-      "question": "The number of moles of solute in 250 mL of 1 M NaCl solution is:",
-      "options": [
-        "a) 0.25",
-        "b) 0.50",
-        "c) 0.75",
-        "d) 1.00"
-      ],
-      "answer": "a) 0.25"
-    },
-    {
-      "question": "The number of significant figures in 0.00540 is:",
-      "options": [
-        "a) 2",
-        "b) 3",
-        "c) 4",
-        "d) 5"
-      ],
-      "answer": "b) 3"
-    },
-    {
-      "question": "In 3.00 × 10², the number of significant figures is:",
-      "options": [
-        "a) 1",
-        "b) 2",
-        "c) 3",
-        "d) 4"
-      ],
-      "answer": "c) 3"
-    },
-    {
-      "question": "Who discovered the electron?",
-      "options": [
-        "a) Rutherford",
-        "b) J.J. Thomson",
-        "c) Chadwick",
-        "d) Bohr"
-      ],
-      "answer": "b) J.J. Thomson"
-    },
-    {
-      "question": "What is the charge on an electron?",
-      "options": [
-        "a) +1",
-        "b) 0",
-        "c) -1",
-        "d) +2"
-      ],
-      "answer": "c) -1"
-    },
-    {
-      "question": "Who proposed the planetary model of the atom?",
-      "options": [
-        "a) Dalton",
-        "b) Thomson",
-        "c) Rutherford",
-        "d) Bohr"
-      ],
-      "answer": "c) Rutherford"
-    },
-    {
-      "question": "The mass of a neutron is approximately equal to the mass of a:",
-      "options": [
-        "a) Proton",
-        "b) Electron",
-        "c) Atom",
-        "d) Molecule"
-      ],
-      "answer": "a) Proton"
-    },
-    {
-      "question": "Which quantum number specifies the shape of an orbital?",
-      "options": [
-        "a) Principal quantum number",
-        "b) Azimuthal quantum number",
-        "c) Magnetic quantum number",
-        "d) Spin quantum number"
-      ],
-      "answer": "b) Azimuthal quantum number"
-    },
-    {
-      "question": "The principal quantum number 'n' determines:",
-      "options": [
-        "a) Shape of the orbital",
-        "b) Orientation of the orbital",
-        "c) Size and energy of the orbital",
-        "d) Spin of the electron"
-      ],
-      "answer": "c) Size and energy of the orbital"
-    },
-    {
-      "question": "For an electron in the 3p orbital, the value of ‘n’ is:",
-      "options": [
-        "a) 2",
-        "b) 3",
-        "c) 4",
-        "d) 5"
-      ],
-      "answer": "b) 3"
-    },
-    {
-      "question": "How many orbitals are present in the third shell (n = 3)?",
-      "options": [
-        "a) 3",
-        "b) 9",
-        "c) 18",
-        "d) 27"
-      ],
-      "answer": "b) 9"
-    },
-    {
-      "question": "According to Bohr’s model, electrons revolve around the nucleus in:",
-      "options": [
-        "a) Elliptical orbits",
-        "b) Spiral orbits",
-        "c) Circular orbits",
-        "d) Undefined paths"
-      ],
-      "answer": "c) Circular orbits"
-    },
-    {
-      "question": "The spectral lines in the hydrogen spectrum are caused by:",
-      "options": [
-        "a) Excitation of protons",
-        "b) Movement of neutrons",
-        "c) Electron transitions between energy levels",
-        "d) Nucleus splitting"
-      ],
-      "answer": "c) Electron transitions between energy levels"
-    },
-    {
-      "question": "The atomic number is equal to the number of:",
-      "options": [
-        "a) Neutrons",
-        "b) Protons",
-        "c) Electrons",
-        "d) Both b and c"
-      ],
-      "answer": "d) Both b and c"
-    },
-    {
-      "question": "Isotopes of an element differ in the number of:",
-      "options": [
-        "a) Protons",
-        "b) Neutrons",
-        "c) Electrons",
-        "d) Orbitals"
-      ],
-      "answer": "b) Neutrons"
-    },
-    {
-      "question": "Which subatomic particle has no charge?",
-      "options": [
-        "a) Electron",
-        "b) Proton",
-        "c) Neutron",
-        "d) Positron"
-      ],
-      "answer": "c) Neutron"
-    },
-    {
-      "question": "Who discovered the nucleus of an atom?",
-      "options": [
-        "a) J.J. Thomson",
-        "b) Rutherford",
-        "c) Bohr",
-        "d) Chadwick"
-      ],
-      "answer": "b) Rutherford"
-    },
-    {
-      "question": "The wavelength of light is inversely proportional to its:",
-      "options": [
-        "a) Frequency",
-        "b) Velocity",
-        "c) Amplitude",
-        "d) Energy"
-      ],
-      "answer": "a) Frequency"
-    },
-    {
-      "question": "According to Heisenberg’s uncertainty principle, it is impossible to determine simultaneously the:",
-      "options": [
-        "a) Energy and position of an electron",
-        "b) Momentum and position of an electron",
-        "c) Energy and velocity of an electron",
-        "d) Velocity and charge of an electron"
-      ],
-      "answer": "b) Momentum and position of an electron"
-    },
-    {
-      "question": "The maximum number of electrons that can be accommodated in a p-orbital is:",
-      "options": [
-        "a) 2",
-        "b) 4",
-        "c) 6",
-        "d) 8"
-      ],
-      "answer": "c) 6"
-    },
-    {
-      "question": "Aufbau principle states that:",
-      "options": [
-        "a) Electrons fill higher energy orbitals first",
-        "b) Electrons fill orbitals in increasing order of energy",
-        "c) Electrons pair up before filling orbitals",
-        "d) Electrons fill d-orbitals before s-orbitals"
-      ],
-      "answer": "b) Electrons fill orbitals in increasing order of energy"
-    },
-    {
-      "question": "Who is known as the father of the modern periodic table?",
-      "options": [
-        "a) Mendeleev",
-        "b) Moseley",
-        "c) Lavoisier",
-        "d) Dobereiner"
-      ],
-      "answer": "b) Moseley"
-    },
-    {
-      "question": "The modern periodic law is based on:",
-      "options": [
-        "a) Atomic mass",
-        "b) Atomic number",
-        "c) Valency",
-        "d) Isotopes"
-      ],
-      "answer": "b) Atomic number"
-    },
-    {
-      "question": "Which element has the highest electronegativity?",
-      "options": [
-        "a) Fluorine",
-        "b) Oxygen",
-        "c) Chlorine",
-        "d) Nitrogen"
-      ],
-      "answer": "a) Fluorine"
-    },
-    {
-      "question": "The elements in the same group of the periodic table have the same:",
-      "options": [
-        "a) Atomic radius",
-        "b) Valence electrons",
-        "c) Number of protons",
-        "d) Ionization energy"
-      ],
-      "answer": "b) Valence electrons"
-    },
-    {
-      "question": "What is the total number of groups in the periodic table?",
-      "options": [
-        "a) 7",
-        "b) 8",
-        "c) 18",
-        "d) 32"
-      ],
-      "answer": "c) 18"
-    },
-    {
-      "question": "Ionization energy increases across a period because:",
-      "options": [
-        "a) Nuclear charge decreases",
-        "b) Shielding effect increases",
-        "c) Atomic radius decreases",
-        "d) Number of valence electrons decreases"
-      ],
-      "answer": "c) Atomic radius decreases"
-    },
-    {
-      "question": "Which of the following has the largest atomic radius?",
-      "options": [
-        "a) Li",
-        "b) Na",
-        "c) K",
-        "d) Rb"
-      ],
-      "answer": "d) Rb"
-    },
-    {
-      "question": "The metallic character increases:",
-      "options": [
-        "a) Across a period",
-        "b) Down a group",
-        "c) From nonmetals to metals",
-        "d) Both b and c"
-      ],
-      "answer": "d) Both b and c"
-    },
-    {
-      "question": "Electronegativity decreases:",
-      "options": [
-        "a) Across a period",
-        "b) Down a group",
-        "c) Both a and b",
-        "d) Neither a nor b"
-      ],
-      "answer": "b) Down a group"
-    },
-    {
-      "question": "Which of the following ions is the smallest?",
-      "options": [
-        "a) Na⁺",
-        "b) Mg²⁺",
-        "c) Al³⁺",
-        "d) Si⁴⁺"
-      ],
-      "answer": "d) Si⁴⁺"
-    },
-    {
-      "question": "Which group contains the most reactive metals?",
-      "options": [
-        "a) Alkali metals",
-        "b) Alkaline earth metals",
-        "c) Halogens",
-        "d) Noble gases"
-      ],
-      "answer": "a) Alkali metals"
-    },
-    {
-      "question": "Which of the following is a noble gas?",
-      "options": [
-        "a) Oxygen",
-        "b) Argon",
-        "c) Nitrogen",
-        "d) Hydrogen"
-      ],
-      "answer": "b) Argon"
-    },
-    {
-      "question": "Transition elements are found in:",
-      "options": [
-        "a) s-block",
-        "b) p-block",
-        "c) d-block",
-        "d) f-block"
-      ],
-      "answer": "c) d-block"
-    },
-    {
-      "question": "Which element has a stable electronic configuration?",
-      "options": [
-        "a) Na",
-        "b) Cl",
-        "c) Ne",
-        "d) O"
-      ],
-      "answer": "c) Ne"
-    },
-    {
-      "question": "The reactivity of halogens decreases:",
-      "options": [
-        "a) Across a period",
-        "b) Down a group",
-        "c) From left to right",
-        "d) None of the above"
-      ],
-      "answer": "b) Down a group"
-    },
-    {
-      "question": "Which period in the periodic table contains the lanthanides?",
-      "options": [
-        "a) 4th period",
-        "b) 5th period",
-        "c) 6th period",
-        "d) 7th period"
-      ],
-      "answer": "c) 6th period"
-    },
-    {
-      "question": "Which block contains nonmetals, metals, and metalloids?",
-      "options": [
-        "a) s-block",
-        "b) p-block",
-        "c) d-block",
-        "d) f-block"
-      ],
-      "answer": "b) p-block"
-    },
-    {
-      "question": "Which of the following is a transition element?",
-      "options": [
-        "a) Na",
-        "b) Fe",
-        "c) He",
-        "d) O"
-      ],
-      "answer": "b) Fe"
-    },
-    {
-      "question": "Which group in the periodic table is also known as the \"coinage metals\"?",
-      "options": [
-        "a) Group 1",
-        "b) Group 11",
-        "c) Group 14",
-        "d) Group 17"
-      ],
-      "answer": "b) Group 11"
-    },
-    {
-      "question": "What is the most abundant element in the Earth's crust?",
-      "options": [
-        "a) Silicon",
-        "b) Oxygen",
-        "c) Aluminum",
-        "d) Iron"
-      ],
-      "answer": "b) Oxygen"
-    },
-    {
-      "question": "Which of the following has a tetrahedral structure?",
-      "options": [
-        "a) Methane (CH₄)",
-        "b) Water (H₂O)",
-        "c) Ammonia (NH₃)",
-        "d) Carbon dioxide (CO₂)"
-      ],
-      "answer": "a) Methane (CH₄)"
-    },
-    {
-      "question": "The bond angle in a water molecule is approximately:",
-      "options": [
-        "a) 120°",
-        "b) 90°",
-        "c) 104.5°",
-        "d) 109.5°"
-      ],
-      "answer": "c) 104.5°"
-    },
-    {
-      "question": "The type of bond in Cl₂ is:",
-      "options": [
-        "a) Ionic bond",
-        "b) Covalent bond",
-        "c) Hydrogen bond",
-        "d) Metallic bond"
-      ],
-      "answer": "b) Covalent bond"
-    },
-    {
-      "question": "Which of the following molecules is polar?",
-      "options": [
-        "a) CO₂",
-        "b) BF₃",
-        "c) H₂O",
-        "d) CCl₄"
-      ],
-      "answer": "c) H₂O"
-    },
-    {
-      "question": "Which hybridization is present in the BF₃ molecule?",
-      "options": [
-        "a) sp",
-        "b) sp²",
-        "c) sp³",
-        "d) sp³d"
-      ],
-      "answer": "b) sp²"
-    },
-    {
-      "question": "Which of the following has the strongest hydrogen bonding?",
-      "options": [
-        "a) H₂O",
-        "b) NH₃",
-        "c) HF",
-        "d) CH₄"
-      ],
-      "answer": "c) HF"
-    },
-    {
-      "question": "The molecule with a linear shape is:",
-      "options": [
-        "a) H₂O",
-        "b) CO₂",
-        "c) CH₄",
-        "d) NH₃"
-      ],
-      "answer": "b) CO₂"
-    },
-    {
-      "question": "What type of bond is formed in NaCl?",
-      "options": [
-        "a) Covalent",
-        "b) Ionic",
-        "c) Metallic",
-        "d) Hydrogen"
-      ],
-      "answer": "b) Ionic"
-    },
-    {
-      "question": "The formal charge on oxygen in the O₃ molecule is:",
-      "options": [
-        "a) -2",
-        "b) -1",
-        "c) 0",
-        "d) +1"
-      ],
-      "answer": "c) 0"
-    },
-    {
-      "question": "Which of the following has a dative (coordinate) bond?",
-      "options": [
-        "a) NH₄⁺",
-        "b) H₂O",
-        "c) CO₂",
-        "d) F₂"
-      ],
-      "answer": "a) NH₄⁺"
-    },
-    {
-      "question": "The shape of NH₃ according to VSEPR theory is:",
-      "options": [
-        "a) Linear",
-        "b) Trigonal planar",
-        "c) Trigonal pyramidal",
-        "d) Tetrahedral"
-      ],
-      "answer": "c) Trigonal pyramidal"
-    },
-    {
-      "question": "Which of the following molecules does not have a dipole moment?",
-      "options": [
-        "a) HCl",
-        "b) H₂O",
-        "c) CH₄",
-        "d) NH₃"
-      ],
-      "answer": "c) CH₄"
-    }
+  
+    {
+      "question": "Which branch of chemistry deals with the study of the composition, structure, and properties of matter?",
+      "options": [
+        "a) Physical Chemistry",
+        "b) Organic Chemistry",
+        "c) Analytical Chemistry",
+        "d) General Chemistry"
+      ],
+      "answer": "d"
+    },
+    {
+      "question": "Which of the following is an extensive property of matter?",
+      "options": [
+        "a) Density",
+        "b) Volume",
+        "c) Melting point",
+        "d) Refractive index"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Identify the intensive property:",
+      "options": [
+        "a) Mass",
+        "b) Volume",
+        "c) Boiling point",
+        "d) Length"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Which law states that a given compound always contains exactly the same proportion of elements by weight?",
+      "options": [
+        "a) Law of Conservation of Mass",
+        "b) Law of Constant Proportion",
+        "c) Law of Multiple Proportion",
+        "d) Avogadro’s Law"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Who gave the law of conservation of mass?",
+      "options": [
+        "a) Dalton",
+        "b) Lavoisier",
+        "c) Proust",
+        "d) Avogadro"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "The ratio of hydrogen to oxygen in water is always 1:8 by mass. This supports:",
+      "options": [
+        "a) Law of Constant Proportion",
+        "b) Law of Multiple Proportion",
+        "c) Avogadro’s Law",
+        "d) Dalton’s Atomic Theory"
+      ],
+      "answer": "a"
+    },
+    {
+      "question": "What is the molecular mass of CO₂? (C = 12, O = 16)",
+      "options": [
+        "a) 28",
+        "b) 44",
+        "c) 32",
+        "d) 40"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "What is the atomic mass of an element with 11 protons and 12 neutrons?",
+      "options": [
+        "a) 12",
+        "b) 22",
+        "c) 23",
+        "d) 24"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "The number of moles in 90 g of water is (H = 1, O = 16):",
+      "options": [
+        "a) 2",
+        "b) 5",
+        "c) 10",
+        "d) 1"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "1 mole of oxygen gas (O₂) weighs:",
+      "options": [
+        "a) 16 g",
+        "b) 32 g",
+        "c) 18 g",
+        "d) 44 g"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "The empirical formula of benzene (C₆H₆) is:",
+      "options": [
+        "a) CH",
+        "b) CH₂",
+        "c) C₂H₂",
+        "d) C₆H₆"
+      ],
+      "answer": "a"
+    },
+    {
+      "question": "If the empirical formula is CH₂ and the molecular mass is 56, what is the molecular formula?",
+      "options": [
+        "a) CH₂",
+        "b) C₂H₄",
+        "c) C₄H₈",
+        "d) C₅H₁₀"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Which of the following represents 1 mole?",
+      "options": [
+        "a) 12 g of carbon-12",
+        "b) 6.022×10236.022 \\times 10^{23} atoms of helium",
+        "c) 1 g of hydrogen gas",
+        "d) 22.4 L of oxygen at STP"
+      ],
+      "answer": "a"
+    },
+    {
+      "question": "What volume does 1 mole of a gas occupy at STP?",
+      "options": [
+        "a) 22.4 mL",
+        "b) 22.4 L",
+        "c) 2.24 L",
+        "d) 224 L"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "The reactant that gets completely consumed in a chemical reaction is called:",
+      "options": [
+        "a) Excess reagent",
+        "b) Limiting reagent",
+        "c) Primary reagent",
+        "d) Catalytic reagent"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Molarity is defined as:",
+      "options": [
+        "a) Moles of solute per liter of solution",
+        "b) Grams of solute per liter of solution",
+        "c) Moles of solute per kilogram of solvent",
+        "d) Grams of solute per kilogram of solvent"
+      ],
+      "answer": "a"
+    },
+    {
+      "question": "The number of moles of solute in 250 mL of 1 M NaCl solution is:",
+      "options": [
+        "a) 0.25",
+        "b) 0.50",
+        "c) 0.75",
+        "d) 1.00"
+      ],
+      "answer": "a"
+    },
+    {
+      "question": "The number of significant figures in 0.00540 is:",
+      "options": [
+        "a) 2",
+        "b) 3",
+        "c) 4",
+        "d) 5"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "In 3.00 × 10², the number of significant figures is:",
+      "options": [
+        "a) 1",
+        "b) 2",
+        "c) 3",
+        "d) 4"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Who discovered the electron?",
+      "options": [
+        "a) Rutherford",
+        "b) J.J. Thomson",
+        "c) Chadwick",
+        "d) Bohr"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "What is the charge on an electron?",
+      "options": [
+        "a) +1",
+        "b) 0",
+        "c) -1",
+        "d) +2"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Who proposed the planetary model of the atom?",
+      "options": [
+        "a) Dalton",
+        "b) Thomson",
+        "c) Rutherford",
+        "d) Bohr"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "The mass of a neutron is approximately equal to the mass of a:",
+      "options": [
+        "a) Proton",
+        "b) Electron",
+        "c) Atom",
+        "d) Molecule"
+      ],
+      "answer": "a"
+    },
+    {
+      "question": "Which quantum number specifies the shape of an orbital?",
+      "options": [
+        "a) Principal quantum number",
+        "b) Azimuthal quantum number",
+        "c) Magnetic quantum number",
+        "d) Spin quantum number"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "The principal quantum number 'n' determines:",
+      "options": [
+        "a) Shape of the orbital",
+        "b) Orientation of the orbital",
+        "c) Size and energy of the orbital",
+        "d) Spin of the electron"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "For an electron in the 3p orbital, the value of ‘n’ is:",
+      "options": [
+        "a) 2",
+        "b) 3",
+        "c) 4",
+        "d) 5"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "How many orbitals are present in the third shell (n = 3)?",
+      "options": [
+        "a) 3",
+        "b) 9",
+        "c) 18",
+        "d) 27"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "According to Bohr’s model, electrons revolve around the nucleus in:",
+      "options": [
+        "a) Elliptical orbits",
+        "b) Spiral orbits",
+        "c) Circular orbits",
+        "d) Undefined paths"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "The spectral lines in the hydrogen spectrum are caused by:",
+      "options": [
+        "a) Excitation of protons",
+        "b) Movement of neutrons",
+        "c) Electron transitions between energy levels",
+        "d) Nucleus splitting"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "The atomic number is equal to the number of:",
+      "options": [
+        "a) Neutrons",
+        "b) Protons",
+        "c) Electrons",
+        "d) Both b and c"
+      ],
+      "answer": "d"
+    },
+    {
+      "question": "Isotopes of an element differ in the number of:",
+      "options": [
+        "a) Protons",
+        "b) Neutrons",
+        "c) Electrons",
+        "d) Orbitals"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Which subatomic particle has no charge?",
+      "options": [
+        "a) Electron",
+        "b) Proton",
+        "c) Neutron",
+        "d) Positron"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Who discovered the nucleus of an atom?",
+      "options": [
+        "a) J.J. Thomson",
+        "b) Rutherford",
+        "c) Bohr",
+        "d) Chadwick"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "The wavelength of light is inversely proportional to its:",
+      "options": [
+        "a) Frequency",
+        "b) Velocity",
+        "c) Amplitude",
+        "d) Energy"
+      ],
+      "answer": "a"
+    },
+    {
+      "question": "According to Heisenberg’s uncertainty principle, it is impossible to determine simultaneously the:",
+      "options": [
+        "a) Energy and position of an electron",
+        "b) Momentum and position of an electron",
+        "c) Energy and velocity of an electron",
+        "d) Velocity and charge of an electron"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "The maximum number of electrons that can be accommodated in a p-orbital is:",
+      "options": [
+        "a) 2",
+        "b) 4",
+        "c) 6",
+        "d) 8"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Aufbau principle states that:",
+      "options": [
+        "a) Electrons fill higher energy orbitals first",
+        "b) Electrons fill orbitals in increasing order of energy",
+        "c) Electrons pair up before filling orbitals",
+        "d) Electrons fill d-orbitals before s-orbitals"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Who is known as the father of the modern periodic table?",
+      "options": [
+        "a) Mendeleev",
+        "b) Moseley",
+        "c) Lavoisier",
+        "d) Dobereiner"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "The modern periodic law is based on:",
+      "options": [
+        "a) Atomic mass",
+        "b) Atomic number",
+        "c) Valency",
+        "d) Isotopes"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Which element has the highest electronegativity?",
+      "options": [
+        "a) Fluorine",
+        "b) Oxygen",
+        "c) Chlorine",
+        "d) Nitrogen"
+      ],
+      "answer": "a"
+    },
+    {
+      "question": "The elements in the same group of the periodic table have the same:",
+      "options": [
+        "a) Atomic radius",
+        "b) Valence electrons",
+        "c) Number of protons",
+        "d) Ionization energy"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "What is the total number of groups in the periodic table?",
+      "options": [
+        "a) 7",
+        "b) 8",
+        "c) 18",
+        "d) 32"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Ionization energy increases across a period because:",
+      "options": [
+        "a) Nuclear charge decreases",
+        "b) Shielding effect increases",
+        "c) Atomic radius decreases",
+        "d) Number of valence electrons decreases"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Which of the following has the largest atomic radius?",
+      "options": [
+        "a) Li",
+        "b) Na",
+        "c) K",
+        "d) Rb"
+      ],
+      "answer": "d"
+    },
+    {
+      "question": "The metallic character increases:",
+      "options": [
+        "a) Across a period",
+        "b) Down a group",
+        "c) From nonmetals to metals",
+        "d) Both b and c"
+      ],
+      "answer": "d"
+    },
+    {
+      "question": "Electronegativity decreases:",
+      "options": [
+        "a) Across a period",
+        "b) Down a group",
+        "c) Both a and b",
+        "d) Neither a nor b"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Which of the following ions is the smallest?",
+      "options": [
+        "a) Na⁺",
+        "b) Mg²⁺",
+        "c) Al³⁺",
+        "d) Si⁴⁺"
+      ],
+      "answer": "d"
+    },
+    {
+      "question": "Which group contains the most reactive metals?",
+      "options": [
+        "a) Alkali metals",
+        "b) Alkaline earth metals",
+        "c) Halogens",
+        "d) Noble gases"
+      ],
+      "answer": "a"
+    },
+    {
+      "question": "Which of the following is a noble gas?",
+      "options": [
+        "a) Oxygen",
+        "b) Argon",
+        "c) Nitrogen",
+        "d) Hydrogen"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Transition elements are found in:",
+      "options": [
+        "a) s-block",
+        "b) p-block",
+        "c) d-block",
+        "d) f-block"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Which element has a stable electronic configuration?",
+      "options": [
+        "a) Na",
+        "b) Cl",
+        "c) Ne",
+        "d) O"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "The reactivity of halogens decreases:",
+      "options": [
+        "a) Across a period",
+        "b) Down a group",
+        "c) From left to right",
+        "d) None of the above"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Which period in the periodic table contains the lanthanides?",
+      "options": [
+        "a) 4th period",
+        "b) 5th period",
+        "c) 6th period",
+        "d) 7th period"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Which block contains nonmetals, metals, and metalloids?",
+      "options": [
+        "a) s-block",
+        "b) p-block",
+        "c) d-block",
+        "d) f-block"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Which of the following is a transition element?",
+      "options": [
+        "a) Na",
+        "b) Fe",
+        "c) He",
+        "d) O"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Which group in the periodic table is also known as the \"coinage metals\"?",
+      "options": [
+        "a) Group 1",
+        "b) Group 11",
+        "c) Group 14",
+        "d) Group 17"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "What is the most abundant element in the Earth's crust?",
+      "options": [
+        "a) Silicon",
+        "b) Oxygen",
+        "c) Aluminum",
+        "d) Iron"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Which of the following has a tetrahedral structure?",
+      "options": [
+        "a) Methane (CH₄)",
+        "b) Water (H₂O)",
+        "c) Ammonia (NH₃)",
+        "d) Carbon dioxide (CO₂)"
+      ],
+      "answer": "a"
+    },
+    {
+      "question": "The bond angle in a water molecule is approximately:",
+      "options": [
+        "a) 120°",
+        "b) 90°",
+        "c) 104.5°",
+        "d) 109.5°"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "The type of bond in Cl₂ is:",
+      "options": [
+        "a) Ionic bond",
+        "b) Covalent bond",
+        "c) Hydrogen bond",
+        "d) Metallic bond"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Which of the following molecules is polar?",
+      "options": [
+        "a) CO₂",
+        "b) BF₃",
+        "c) H₂O",
+        "d) CCl₄"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Which hybridization is present in the BF₃ molecule?",
+      "options": [
+        "a) sp",
+        "b) sp²",
+        "c) sp³",
+        "d) sp³d"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "Which of the following has the strongest hydrogen bonding?",
+      "options": [
+        "a) H₂O",
+        "b) NH₃",
+        "c) HF",
+        "d) CH₄"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "The molecule with a linear shape is:",
+      "options": [
+        "a) H₂O",
+        "b) CO₂",
+        "c) CH₄",
+        "d) NH₃"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "What type of bond is formed in NaCl?",
+      "options": [
+        "a) Covalent",
+        "b) Ionic",
+        "c) Metallic",
+        "d) Hydrogen"
+      ],
+      "answer": "b"
+    },
+    {
+      "question": "The formal charge on oxygen in the O₃ molecule is:",
+      "options": [
+        "a) -2",
+        "b) -1",
+        "c) 0",
+        "d) +1"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Which of the following has a dative (coordinate) bond?",
+      "options": [
+        "a) NH₄⁺",
+        "b) H₂O",
+        "c) CO₂",
+        "d) F₂"
+      ],
+      "answer": "a"
+    },
+    {
+      "question": "The shape of NH₃ according to VSEPR theory is:",
+      "options": [
+        "a) Linear",
+        "b) Trigonal planar",
+        "c) Trigonal pyramidal",
+        "d) Tetrahedral"
+      ],
+      "answer": "c"
+    },
+    {
+      "question": "Which of the following molecules does not have a dipole moment?",
+      "options": [
+        "a) HCl",
+        "b) H₂O",
+        "c) CH₄",
+        "d) NH₃"
+      ],
+      "answer": "c"
+    }
 
-    ];
+    ];
 
     const biologyQuestions = [
         
@@ -3512,7 +3515,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- END OF YOUR JSON DATA ---
 
 
-    const subjects = {
+   const subjects = {
         physics: { name: "Physics", questions: physicsQuestions, score: 0 },
         chemistry: { name: "Chemistry", questions: chemistryQuestions, score: 0 },
         biology: { name: "Biology", questions: biologyQuestions, score: 0 },
@@ -3552,34 +3555,32 @@ document.addEventListener('DOMContentLoaded', function() {
             const optionsContainer = document.createElement('div');
             optionsContainer.className = 'options-container';
 
-            for (const key in questionData.options) {
-                if (questionData.options.hasOwnProperty(key)) {
-                    const optionValue = questionData.options[key];
+            // --- START: ADAPTED LOGIC FOR OPTIONS (ARRAY VS OBJECT) ---
+            if (Array.isArray(questionData.options)) {
+                // If options is an array (like Chemistry)
+                questionData.options.forEach((optionValue, optIndex) => {
+                    // Generate key 'a', 'b', 'c', 'd' based on index
+                    const key = String.fromCharCode(97 + optIndex);
+
                     const label = document.createElement('label');
                     label.className = 'option-label';
-                    label.setAttribute('for', `radio-${subjectId}-${index}-${key}`); // Link label to radio
+                    label.setAttribute('for', `radio-${subjectId}-${index}-${key}`);
 
                     const radio = document.createElement('input');
                     radio.type = 'radio';
                     radio.name = `answer-${subjectId}-${index}`; // Unique name for each question's radio group
-                    radio.value = key;
-                    radio.id = `radio-${subjectId}-${index}-${key}`; // Unique ID for each radio
+                    radio.value = key; // Assign 'a', 'b', 'c', 'd' as the radio's value
+                    radio.id = `radio-${subjectId}-${index}-${key}`;
 
-                    // Event listener to highlight selected option and show Done button
+                    // Add event listener (same as before)
                     radio.addEventListener('change', function() {
-                        // Only proceed if the question hasn't been answered yet
                         if (questionCard.dataset.answered === 'true') return;
-
-                        // Remove 'selected' class from all sibling labels within this question's options
                         optionsContainer.querySelectorAll('.option-label').forEach(lbl => {
                             lbl.classList.remove('selected');
                         });
-                        // Add 'selected' class to the currently checked label
                         if (this.checked) {
                             label.classList.add('selected');
                         }
-
-                        // Show the 'Done' button for this question
                         const doneBtn = questionCard.querySelector('.done-btn');
                         if (doneBtn) {
                             doneBtn.style.display = 'inline-block';
@@ -3587,10 +3588,47 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
 
                     label.appendChild(radio);
-                    label.appendChild(document.createTextNode(optionValue));
+                    label.appendChild(document.createTextNode(optionValue)); // Display the full option text
                     optionsContainer.appendChild(label);
+                });
+            } else {
+                // If options is an object (like Physics, Biology, English)
+                for (const key in questionData.options) {
+                    if (questionData.options.hasOwnProperty(key)) {
+                        const optionValue = questionData.options[key];
+                        const label = document.createElement('label');
+                        label.className = 'option-label';
+                        label.setAttribute('for', `radio-${subjectId}-${index}-${key}`);
+
+                        const radio = document.createElement('input');
+                        radio.type = 'radio';
+                        radio.name = `answer-${subjectId}-${index}`;
+                        radio.value = key; // Assign 'a', 'b', 'c', 'd' as the radio's value
+                        radio.id = `radio-${subjectId}-${index}-${key}`;
+
+                        // Add event listener (same as before)
+                        radio.addEventListener('change', function() {
+                            if (questionCard.dataset.answered === 'true') return;
+                            optionsContainer.querySelectorAll('.option-label').forEach(lbl => {
+                                lbl.classList.remove('selected');
+                            });
+                            if (this.checked) {
+                                label.classList.add('selected');
+                            }
+                            const doneBtn = questionCard.querySelector('.done-btn');
+                            if (doneBtn) {
+                                doneBtn.style.display = 'inline-block';
+                            }
+                        });
+
+                        label.appendChild(radio);
+                        label.appendChild(document.createTextNode(optionValue));
+                        optionsContainer.appendChild(label);
+                    }
                 }
             }
+            // --- END: ADAPTED LOGIC FOR OPTIONS ---
+
             questionCard.appendChild(optionsContainer);
 
             const feedbackDiv = document.createElement('div');
@@ -3606,6 +3644,27 @@ document.addEventListener('DOMContentLoaded', function() {
             doneBtn.dataset.questionIndex = index;
             questionCard.appendChild(doneBtn);
 
+            // --- START: AI EXPLAIN BUTTON & AREA ---
+            const aiExplainBtn = document.createElement('button');
+            aiExplainBtn.className = 'button ai-explain-btn';
+            aiExplainBtn.textContent = 'AI Explanation';
+            aiExplainBtn.style.display = 'none'; // Initially hidden
+            questionCard.appendChild(aiExplainBtn);
+
+            const aiExplanationArea = document.createElement('div');
+            aiExplanationArea.className = 'ai-explanation-area';
+            aiExplanationArea.style.marginTop = '15px';
+            aiExplanationArea.style.padding = '15px';
+            aiExplanationArea.style.borderLeft = '5px solid #007bff';
+            aiExplanationArea.style.backgroundColor = '#e3f2fd'; // Lighter blue for background
+            aiExplanationArea.style.borderRadius = '5px';
+            aiExplanationArea.style.fontStyle = 'italic';
+            aiExplanationArea.style.color = '#555';
+            aiExplanationArea.style.display = 'none';
+            questionCard.appendChild(aiExplanationArea);
+            // --- END: AI EXPLAIN BUTTON & AREA ---
+
+
             // Event listener for the 'Done' button
             doneBtn.addEventListener('click', function() {
                 const clickedSubjectId = this.dataset.subjectId;
@@ -3620,23 +3679,55 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
-                const userAnswer = selectedOption.value;
+                const userAnswer = selectedOption.value; // This is always 'a', 'b', 'c', or 'd'
 
-                // --- START OF REQUIRED CHANGE ---
-                // Safely extract the single-letter correct answer key from currentQuestion.answer
-                let correctAnswerKey = currentQuestion.answer;
-                // This regex looks for a single character (letter or number) inside parentheses at the start of the string
-                const match = correctAnswerKey.match(/^\((\w)\)/); 
-                if (match && match[1]) {
-                    correctAnswerKey = match[1]; // If a match is found, use the extracted character
+                // --- START: ROBUST CORRECT ANSWER KEY EXTRACTION ---
+                let rawAnswer = currentQuestion.answer;
+                let extractedCorrectKey = '';
+
+                // Try to find a single letter 'a' through 'd' (case-insensitive)
+                // It looks for patterns like:
+                // "b"
+                // "(a)"
+                // "c) Text"
+                // "(b / c) Text" (it will pick the first letter 'b')
+                const keyMatch = rawAnswer.match(/^\s*\(?([a-d])(?:\)|\s|\/|$)/i);
+
+                if (keyMatch && keyMatch[1]) {
+                    extractedCorrectKey = keyMatch[1].toLowerCase();
+                } else if (rawAnswer.length === 1 && ['a', 'b', 'c', 'd'].includes(rawAnswer.toLowerCase())) {
+                    // If it's already a single letter (like for Physics questions)
+                    extractedCorrectKey = rawAnswer.toLowerCase();
+                } else {
+                    // Fallback: If no common pattern matches, try to extract the first char
+                    const firstChar = rawAnswer.trim().charAt(0).toLowerCase();
+                    if (['a', 'b', 'c', 'd'].includes(firstChar)) {
+                        extractedCorrectKey = firstChar;
+                    } else {
+                        console.warn('Could not reliably extract answer key from:', rawAnswer, 'for question:', currentQuestion.question);
+                        // Assign an invalid key to prevent false positives if extraction fails
+                        extractedCorrectKey = 'unknown';
+                    }
                 }
-                // At this point, correctAnswerKey will *always* be just 'a', 'b', 'c', or 'd'
-                // --- END OF REQUIRED CHANGE ---
+                const correctAnswerKey = extractedCorrectKey;
+                // --- END: ROBUST CORRECT ANSWER KEY EXTRACTION ---
+
+
+                // --- Debugging Console Logs (Keep these!) ---
+                console.log('--- Answer Check ---');
+                console.log('Current Subject ID:', clickedSubjectId);
+                console.log('Current Question Index:', clickedQuestionIndex);
+                console.log('Current Question Object:', currentQuestion); // Full object for inspection
+                console.log('Raw Answer String from JSON:', rawAnswer);
+                console.log('Extracted Correct Answer Key:', correctAnswerKey);
+                console.log('User Selected Option (Value):', userAnswer);
+                console.log('--------------------');
+                // --- End Debugging Console Logs ---
 
 
                 // Mark the question as answered
                 questionCard.dataset.answered = 'true';
-                questionCard.classList.add('answered'); // Add class for CSS to disable hover etc.
+                questionCard.classList.add('answered');
 
                 // Disable all radio buttons for this question
                 optionsContainer.querySelectorAll(`input[name="answer-${clickedSubjectId}-${clickedQuestionIndex}"]`).forEach(radio => {
@@ -3661,16 +3752,105 @@ document.addEventListener('DOMContentLoaded', function() {
                     feedbackDiv.textContent = 'You are doing great Kuhi!👏🔥';
                     feedbackDiv.className = 'feedback correct-feedback';
                 } else {
-                    // Explicitly show the correct answer for incorrect attempts
-                    // Now correctAnswerKey will correctly hold 'a', 'b', 'c', or 'd'
-                    feedbackDiv.textContent = `No worries Kuhi, keep going!🤗 The correct answer was: ${currentQuestion.options[correctAnswerKey]}`;
+                    // Display the full correct answer text to the user
+                    let correctOptionDisplayText = '';
+                    if (Array.isArray(currentQuestion.options)) {
+                         // Find the full text if options is an array, using the extracted key
+                         const correctIndex = correctAnswerKey.charCodeAt(0) - 97; // 'a' -> 0, 'b' -> 1 etc.
+                         if (currentQuestion.options[correctIndex]) {
+                             correctOptionDisplayText = currentQuestion.options[correctIndex];
+                         }
+                    } else if (currentQuestion.options && currentQuestion.options[correctAnswerKey]) {
+                        // Find the full text if options is an object, using the extracted key
+                        correctOptionDisplayText = currentQuestion.options[correctAnswerKey];
+                    } else {
+                        // Fallback if option text not found
+                        correctOptionDisplayText = `(Key: ${correctAnswerKey})`;
+                    }
+
+                    feedbackDiv.textContent = `No worries Kuhi, keep going!🤗 The correct answer was: ${correctOptionDisplayText}`;
                     feedbackDiv.className = 'feedback incorrect-feedback';
                 }
                 // --- End Customized Feedback Messages ---
 
                 // Hide the 'Done' button after checking
                 doneBtn.style.display = 'none';
+
+                // --- SHOW AI EXPLAIN BUTTON ---
+                aiExplainBtn.style.display = 'inline-block';
+                // Store relevant data on the AI button for its click handler
+                aiExplainBtn.dataset.questionText = currentQuestion.question;
+                aiExplainBtn.dataset.correctOptionKey = correctAnswerKey;
+                // Determine the correct option text (e.g., "Gold is malleable" or "d) General Chemistry")
+                let correctOptionValue = '';
+                if (Array.isArray(currentQuestion.options)) {
+                    const correctIndex = correctAnswerKey.charCodeAt(0) - 97;
+                    if (currentQuestion.options[correctIndex]) {
+                        correctOptionValue = currentQuestion.options[correctIndex];
+                    }
+                } else if (currentQuestion.options && currentQuestion.options[correctAnswerKey]) {
+                    correctOptionValue = currentQuestion.options[correctAnswerKey];
+                }
+                aiExplainBtn.dataset.correctOptionValue = correctOptionValue;
             });
+
+            // --- AI EXPLAIN BUTTON EVENT LISTENER ---
+            aiExplainBtn.addEventListener('click', async function() {
+                const explanationArea = aiExplanationArea; // Reference the created div
+                explanationArea.style.display = 'block';
+                explanationArea.innerHTML = ''; // Clear previous explanation
+                this.classList.add('loading'); // Add loading class to the button
+                this.textContent = 'Loading AI...'; // Change button text
+
+                const questionText = this.dataset.questionText;
+                const correctOptionKey = this.dataset.correctOptionKey;
+                const correctOptionValue = this.dataset.correctOptionValue; // Get the full text for the prompt
+
+                if (!questionText || !correctOptionKey || !correctOptionValue) {
+                    explanationArea.innerHTML = 'Error: Could not retrieve question details for AI explanation.';
+                    this.classList.remove('loading'); // Remove loading class on error
+                    this.textContent = 'AI Explanation'; // Restore button text
+                    return;
+                }
+
+                // Construct a precise prompt for Gemini
+                const prompt = `Given the multiple-choice question: "${questionText}" and the correct answer option: "${correctOptionKey}) ${correctOptionValue}". Explain why this option is correct and provide a brief conceptual explanation related to the topic. Keep the explanation concise and focused on the core concept.`;
+
+                try {
+                    const response = await fetch(GEMINI_API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{ text: prompt }]
+                            }]
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('Gemini API Error:', errorData);
+                        explanationArea.innerHTML = `Failed to load explanation. API error: ${errorData.error ? errorData.error.message : response.statusText}`;
+                        return; // Exit without restoring button text yet, to show error
+                    }
+
+                    const data = await response.json();
+                    const aiExplanation = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0] ? data.candidates[0].content.parts[0].text : 'No explanation received.';
+
+                    explanationArea.innerHTML = `<strong>AI Explanation:</strong> ${aiExplanation}`;
+
+                } catch (error) {
+                    console.error('Error fetching AI explanation:', error);
+                    explanationArea.innerHTML = 'Failed to load explanation. Please try again.';
+                } finally {
+                    this.classList.remove('loading'); // Always remove loading class
+                    this.textContent = 'AI Explanation'; // Always restore button text
+                }
+            });
+            // --- END: AI EXPLAIN BUTTON EVENT LISTENER ---
+
 
             questionsListDiv.appendChild(questionCard);
         });
@@ -3737,6 +3917,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const doneBtn = card.querySelector('.done-btn');
             if (doneBtn) {
                 doneBtn.style.display = 'none';
+            }
+
+            // Hide and clear AI explanation for restart
+            const aiExplainBtn = card.querySelector('.ai-explain-btn');
+            if (aiExplainBtn) {
+                aiExplainBtn.style.display = 'none';
+                aiExplainBtn.classList.remove('loading'); // Ensure loading class is removed
+                aiExplainBtn.textContent = 'AI Explanation'; // Restore button text
+            }
+            const aiExplanationArea = card.querySelector('.ai-explanation-area');
+            if (aiExplanationArea) {
+                aiExplanationArea.style.display = 'none';
+                aiExplanationArea.innerHTML = '';
             }
         });
 
