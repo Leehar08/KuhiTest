@@ -3658,12 +3658,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // --- Customized Feedback Messages ---
                 if (userAnswer === correctAnswerKey) {
                     subjects[clickedSubjectId].score++; // Increment score for the subject
-                    feedbackDiv.textContent = 'You are doing great Kuhi!';
+                    feedbackDiv.textContent = 'You are doing great Kuhi!👏🔥';
                     feedbackDiv.className = 'feedback correct-feedback';
                 } else {
                     // Explicitly show the correct answer for incorrect attempts
                     // Now correctAnswerKey will correctly hold 'a', 'b', 'c', or 'd'
-                    feedbackDiv.textContent = `No worries Kuhi, keep going! The correct answer was: ${currentQuestion.options[correctAnswerKey]}`;
+                    feedbackDiv.textContent = `No worries Kuhi, keep going!🤗 The correct answer was: ${currentQuestion.options[correctAnswerKey]}`;
                     feedbackDiv.className = 'feedback incorrect-feedback';
                 }
                 // --- End Customized Feedback Messages ---
