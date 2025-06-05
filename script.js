@@ -3621,7 +3621,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 const userAnswer = selectedOption.value;
-                const correctAnswerKey = currentQuestion.correct_answer_key;
+
+                // --- START OF REQUIRED CHANGE ---
+                // Safely extract the single-letter correct answer key from currentQuestion.answer
+                let correctAnswerKey = currentQuestion.answer;
+                // This regex looks for a single character (letter or number) inside parentheses at the start of the string
+                const match = correctAnswerKey.match(/^\((\w)\)/); 
+                if (match && match[1]) {
+                    correctAnswerKey = match[1]; // If a match is found, use the extracted character
+                }
+                // At this point, correctAnswerKey will *always* be just 'a', 'b', 'c', or 'd'
+                // --- END OF REQUIRED CHANGE ---
+
 
                 // Mark the question as answered
                 questionCard.dataset.answered = 'true';
@@ -3650,7 +3661,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     feedbackDiv.textContent = 'You are doing great Kuhi!';
                     feedbackDiv.className = 'feedback correct-feedback';
                 } else {
-                    feedbackDiv.textContent = 'No worries Kuhi, keep going!'; // Simplified for incorrect
+                    // Explicitly show the correct answer for incorrect attempts
+                    // Now correctAnswerKey will correctly hold 'a', 'b', 'c', or 'd'
+                    feedbackDiv.textContent = `No worries Kuhi, keep going! The correct answer was: ${currentQuestion.options[correctAnswerKey]}`;
                     feedbackDiv.className = 'feedback incorrect-feedback';
                 }
                 // --- End Customized Feedback Messages ---
