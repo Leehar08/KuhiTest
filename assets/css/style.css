@@ -444,6 +444,78 @@ body {
 }
 
 /* ------------------------------------------------------------- */
+/* Styles for AI Explanation Button and Loading Animation */
+/* ------------------------------------------------------------- */
+
+.ai-explain-btn {
+    background: linear-gradient(135deg, #64b5f6, #3f51b5); /* Electric Blue Gradient */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 15px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+    overflow: hidden; /* For potential animation clipping */
+    position: relative; /* For loading spinner positioning */
+}
+
+.ai-explain-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.ai-explain-btn::before { /* Brain Icon (Emoji fallback) */
+    content: '🧠';
+    font-size: 1.2em;
+}
+
+.ai-explain-btn.loading {
+    color: #ccc; /* Fade text during loading */
+    cursor: not-allowed;
+}
+
+.ai-explain-btn.loading::before {
+    content: ''; /* Hide brain icon during loading */
+}
+
+.ai-explain-btn.loading::after { /* Circular Loading Spinner */
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    position: absolute;
+    left: 10px; /* Adjust position as needed */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@keyframes spin {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+.ai-explanation-area {
+    margin-top: 15px;
+    padding: 15px;
+    border-left: 5px solid #007bff;
+    background-color: #e3f2fd; /* Lighter blue for background */
+    border-radius: 5px;
+    font-style: italic;
+    color: #555;
+    display: none;
+}
+
+/* ------------------------------------------------------------- */
 /* Responsive Adjustments */
 /* ------------------------------------------------------------- */
 
